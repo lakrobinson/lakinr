@@ -1,0 +1,106 @@
+---
+title: "Using lakinr"
+author: "Lakin Robinson"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+```{r set_global_options, include=FALSE}
+knitr::opts_chunk$set(error = TRUE)
+```
+
+# Package Overview
+
+`lakinr` package reads and plots Fatality Analysis Reporting System (FARS) data 
+from the [National Highway Traffic Safety 
+Administration](https://www.nhtsa.gov/research-data/fatality-analysis-reporting-system-fars).
+
+[FARS](https://en.wikipedia.org/wiki/Fatality_Analysis_Reporting_System) is a
+nationwide census, providing the American public yearly data, regarding fatal
+injuries suffered in motor vehicle traffic crashes.
+
+
+## Load Packages
+
+```{r}
+library(lakinr)
+library(maps)
+```
+
+
+## Included data
+
+The following data files are included within the package:
+
+```{r}
+system.file('extdata', 'accident_2013.csv.bz2', package = 'lakinr')
+system.file('extdata', 'accident_2014.csv.bz2', package = 'lakinr')
+system.file('extdata', 'accident_2015.csv.bz2', package = 'lakinr')
+```
+These files are used later to demonstrate the use of the package's functions.
+
+## Package Functions
+
+### Function `make_filename`
+
+This function returns file name using the relevant year. An example is shown below:
+
+```{r}
+year <- 2013
+make_filename(year)
+```
+
+### Function `fars_read`
+
+This function accesses `readr::read_csv` in otder to pars a FARS data file or, in the case of a nonexistent file, return an error. An example of each case is shown below:
+
+```{R}
+#file exists
+data<-fars_read('accident_2013.csv.bz2')
+
+#file does not exist
+data2<-fars_read('accident_3000.csv.bz2')
+```
+
+### Function `fars_read_years`
+
+This is a function used by `fars_summarize_years`. The purpose is to parse files that correspond with given year(s). An example is shown below:
+
+```{r}
+years<-2013:2015
+fars_read_years(years)
+```
+
+
+### Function `fars_summarize_years`
+
+This function constructs a summary of yearly accidents data, by month. It uses the functionality of fars_read_years to do so. An example is shown below:
+
+```{r}
+years<-2013:2015
+fars_summarize_years(years)
+```
+
+### Function `fars_map_state`
+
+The function plots the location of individual accideants for a given `year` on a map of a given state (`state_num`). If the `state_num` is invalid, an error is returned. If there are no accidents for the given state/year combination, a message is returned. Two examples are shown below:
+
+```{r}
+#State input is valid
+state_num <- 49 # Utah
+year <- 2014
+fars_map_state(state_num, year)
+
+#State input is invalid
+state_num<-350
+year<-2015
+fars_map_state(state_num, year)
+```
+
+
+# Links:
+* [Package lakinr GitHub]()
+* [Package lakinr Travis CI]()
