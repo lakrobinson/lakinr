@@ -5,10 +5,6 @@ Author: Lakin Robinson
 Description: `fars` package reads and plots Fatality Analysis Reporting System (FARS) data 
         from the [National Highway Traffic Safety 
         Administration](https://www.nhtsa.gov/research-data/fatality-analysis-reporting-system-fars).
-
-        [FARS](https://en.wikipedia.org/wiki/Fatality_Analysis_Reporting_System) is a
-        nationwide census, providing the American public yearly data, regarding fatal
-        injuries suffered in motor vehicle traffic crashes.
 License: GPL (>= 2)
 Encoding: UTF-8
 LazyData: true
